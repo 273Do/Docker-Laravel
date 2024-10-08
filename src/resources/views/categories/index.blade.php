@@ -10,7 +10,9 @@
 
 <body>
     <a href='/posts/create'>create</a>
-    <h1>Blog Name</h1>
+    <!-- <h1>Blog Name</h1> -->
+    <h1>{{ $category->name }}</h1>
+    <a href="/">戻る</a>
     <div class='posts'>
         @foreach ($posts as $post)
         <div class='post'>
