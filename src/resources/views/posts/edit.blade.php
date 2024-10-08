@@ -20,6 +20,17 @@
                 <h2>本文</h2>
                 <input type='text' name='post[body]' value="{{ $post->body }}">
             </div>
+            <div class="category">
+                <h2>Category</h2>
+                <select name="post[category_id]">
+                    @foreach($categories as $category)
+                    <option value="{{ $category->id }}"
+                        @if($category->id == $post->category->id) selected @endif>
+                        {{ $category->name }}
+                    </option>
+                    @endforeach
+                </select>
+            </div>
             <input type="submit" value="保存">
             <div class="footer">
                 <a href="/posts/{{ $post->id }}">戻る</a>
