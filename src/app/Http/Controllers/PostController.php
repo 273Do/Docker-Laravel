@@ -6,6 +6,7 @@ use App\Http\Requests\PostRequest;
 use App\Models\Post;
 use Illuminate\Http\Request;
 use App\Models\Category;
+use Illuminate\Support\Facades\Auth;
 
 class PostController extends Controller
 {
@@ -17,6 +18,8 @@ class PostController extends Controller
 
     public function show(Post $post)
     {
+
+        // dd($user->replies->message);
         return view('posts.show')->with(['post' => $post]);
     }
 

@@ -15,10 +15,10 @@
     </x-slot>
 
     <body>
-        <h1 class="title">
+        <h1 class="title text-xl text-blue-600 font-bold">
             {{ $post->title }}
         </h1>
-        <a href="/categories/{{ $post->category->id }}">{{ $post->category->name }}</a>
+        <a class="text-yellow-500" href="/categories/{{ $post->category->id }}">{{ $post->category->name }}</a>
         <div class="content">
             <div class="content__post">
                 <h3>本文</h3>
@@ -31,10 +31,35 @@
         <form action="/posts/{{ $post->id }}" id="form_{{ $post->id }}" method="post">
             @csrf
             @method('DELETE')
-            <button type="button" onclick="deletePost({{ $post->id }})">delete</button>
+            <button class="text-red-500" type="button" onclick="deletePost({{ $post->id }})">delete</button>
         </form>
         <div class="footer">
             <a href="/">戻る</a>
+        </div>
+        <hr>
+        <div>
+            <p>コメント</p>
+            <form action="/posts/reply" method="POST">
+                @csrf
+                <div class="message">
+                    <input type="text" name="reply[message]" placeholder="コメントを入力" value="{{ old('reply.message') }}" />
+                    <input type="hidden" name="reply[post_id]" value="{{ $post->id }}" />
+                    <p class="message__error" style="color:red">{{ $errors->first('reply.message') }}</p>
+                </div>
+                <input class="cursor-pointer" type="submit" value="コメントを送信" />
+            </form>
+            <hr>
+            <div>
+                @foreach ($post->replies as $reply)
+                <div class="reply">
+                    <div class="flex gap-2">
+                        <p class="font-bold">{{ $reply->user->name}}</p>
+                        <p>{{ $reply->created_at }}</p>
+                    </div>
+                    <p>{{ $reply->message }}</p>
+                </div>
+                @endforeach
+            </div>
         </div>
     </body>
 

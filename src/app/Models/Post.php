@@ -33,4 +33,11 @@ class Post extends Model
         // Post belongs to Category
         return $this->belongsTo(Category::class);
     }
+
+    public function replies()
+    {
+        // Post has many Replies
+        // return $this->belongsToMany(User::class, 'replies');
+        return $this->hasMany(Reply::class);
+    }
 }
