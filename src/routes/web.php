@@ -3,6 +3,7 @@
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\ReplyController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -22,6 +23,7 @@ Route::controller(PostController::class)->middleware(['auth'])->group(function (
 });
 
 Route::get('/categories/{category}', [CategoryController::class, 'index'])->middleware("auth");
+Route::post('/posts/reply', [ReplyController::class, 'reply'])->middleware("auth");
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
