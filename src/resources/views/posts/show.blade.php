@@ -7,6 +7,9 @@
     <title>Posts</title>
     <!-- Fonts -->
     <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
 </head>
 
 <x-app-layout>
@@ -15,9 +18,19 @@
     </x-slot>
 
     <body>
-        <h1 class="title text-xl text-blue-600 font-bold">
-            {{ $post->title }}
-        </h1>
+        <div class="flex items-center gap-3">
+            <h1 class='title text-xl text-blue-600 font-bold'>
+                <a href="/posts/{{ $post->id }}">{{ $post->title }}</a>
+            </h1>
+            @auth
+            @if(Auth::user()->likes()->where('post_id', $post->id)->exists())
+            <ion-icon name="heart" class="like-btn cursor-pointer text-pink-500" id={{$post->id}}></ion-icon>
+            @else
+            <ion-icon name="heart-outline" class="like-btn cursor-pointer" id={{$post->id}}></ion-icon>
+            @endif
+            <p>{{$post->likes->count()}}</p>
+            @endauth
+        </div>
         <a class="text-yellow-500" href="/categories/{{ $post->category->id }}">{{ $post->category->name }}</a>
         <div class="content">
             <div class="content__post">
