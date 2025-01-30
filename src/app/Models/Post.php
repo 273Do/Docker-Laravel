@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Facades\Auth;
 
 class Post extends Model
 {
@@ -39,5 +40,11 @@ class Post extends Model
         // Post has many Replies
         // return $this->belongsToMany(User::class, 'replies');
         return $this->hasMany(Reply::class);
+    }
+
+    public function likes()
+    {
+        // User / Post has many Likes
+        return $this->hasMany(Like::class);
     }
 }

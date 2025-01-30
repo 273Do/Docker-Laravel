@@ -49,4 +49,10 @@ class User extends Authenticatable
         // return $this->belongsToMany(Post::class, 'replies');
         return $this->hasMany(Reply::class);
     }
+
+    public function likes()
+    {
+        // User / Post has many Likes
+        return $this->hasMany(Like::class);
+    }
 }
